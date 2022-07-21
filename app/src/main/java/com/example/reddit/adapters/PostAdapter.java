@@ -43,9 +43,18 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
         title.setText(posts.get(position).getTitle());
         author.setText("Posted by u/"+posts.get(position).getAuthor()+" in r/"+posts.get(position).getSubreddit());
-        Glide.with(context).load(posts.get(position).getUrl())
-                .optionalFitCenter()
-                        .into(image);
+       if (posts.get(position).getImageUrl() != null) {
+            image.requestLayout();
+           try {
+               Glide.with(context).load(posts.get(position).getImageUrl())
+                       .optionalFitCenter()
+
+                       .into(image);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+
+       }
         button.setText(String.valueOf(posts.get(position).getScore()));
         comment.setText(String.valueOf(posts.get(position).getNum_comments()));
 
